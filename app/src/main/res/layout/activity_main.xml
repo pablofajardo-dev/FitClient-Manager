@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FitClient Manager"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/tvSubtitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gestión de clientes para entrenamiento personal"
+        android:textSize="16sp"
+        android:textColor="#555555"
+        android:gravity="center"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/btnClientes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver clientes"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnNuevoCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir cliente" />
+
+    <Button
+        android:id="@+id/btnEditarEliminarCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar / eliminar cliente"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnNuevaRutina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir rutina"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnVerRutinas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver rutinas"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnNuevoSeguimiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir seguimiento"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnVerSeguimientos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver seguimientos"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
