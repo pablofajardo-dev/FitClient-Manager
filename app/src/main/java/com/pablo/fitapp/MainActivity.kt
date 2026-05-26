@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         val btnVerRutinas = findViewById<Button>(R.id.btnVerRutinas)
         val btnNuevoSeguimiento = findViewById<Button>(R.id.btnNuevoSeguimiento)
         val btnVerSeguimientos = findViewById<Button>(R.id.btnVerSeguimientos)
+        val btnRutinasPorCliente = findViewById<Button>(R.id.btnRutinasPorCliente)
 
         btnClientes.setOnClickListener {
             val intent = Intent(this, ListaClientesActivity::class.java)
@@ -53,5 +54,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ListaSeguimientosActivity::class.java)
             startActivity(intent)
         }
+
+        btnRutinasPorCliente.setOnClickListener {
+            val intent = Intent(this, RutinasPorClienteActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

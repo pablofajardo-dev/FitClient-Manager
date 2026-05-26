@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitApp">
         <activity
+            android:name=".RutinasPorClienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListaSeguimientosActivity"
             android:exported="false" />
         <activity
