@@ -14,9 +14,11 @@ El objetivo del proyecto es ofrecer una herramienta sencilla, funcional y amplia
 - Consulta de clientes registrados.
 - Edición y eliminación de clientes.
 - Registro de rutinas asociadas a clientes existentes.
-- Consulta de rutinas registradas.
+- Consulta general de rutinas registradas.
+- Consulta de rutinas filtradas por cliente.
 - Registro de seguimientos físicos asociados a clientes existentes.
-- Consulta de seguimientos físicos.
+- Consulta general de seguimientos físicos.
+- Consulta de seguimientos filtrados por cliente.
 - Validaciones básicas de formularios.
 - Almacenamiento local con SQLite.
 
@@ -42,12 +44,16 @@ La aplicación se organiza en diferentes pantallas o actividades:
 - `NuevoSeguimientoActivity`: registro de seguimientos físicos.
 - `ListaSeguimientosActivity`: consulta de seguimientos.
 - `ClienteDbHelper`: gestión de la base de datos SQLite.
+- `RutinasPorClienteActivity`: consulta de rutinas filtradas por cliente.
+- `SeguimientosPorClienteActivity`: consulta de seguimientos filtrados por cliente.
 
 ## Estado del proyecto
 
 Versión académica funcional.
 
-Actualmente la aplicación permite gestionar clientes, rutinas y seguimientos de forma local. Como posibles mejoras futuras se contemplan la consulta filtrada por cliente, mejora visual de listados, autenticación, sincronización en la nube y gráficos de evolución.
+Actualmente la aplicación permite gestionar clientes, rutinas y seguimientos de forma local. También incorpora consultas filtradas por cliente para visualizar únicamente las rutinas o seguimientos asociados a un cliente concreto.
+
+Como posibles mejoras futuras se contemplan la mejora visual de listados, autenticación, sincronización en la nube, gráficos de evolución y generación de informes.
 
 ## Autor
 
