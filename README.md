@@ -19,8 +19,13 @@ El objetivo del proyecto es ofrecer una herramienta sencilla, funcional y amplia
 - Registro de seguimientos físicos asociados a clientes existentes.
 - Consulta general de seguimientos físicos.
 - Consulta de seguimientos filtrados por cliente.
-- Validaciones básicas de formularios.
+- Validaciones básicas y avanzadas en formularios.
+- Validación de teléfono, correo electrónico y edad.
+- Selección de nivel del cliente mediante desplegable.
+- Selección de días de entrenamiento mediante casillas.
+- Selección de fechas mediante calendario.
 - Almacenamiento local con SQLite.
+- Interfaz adaptada con pantallas desplazables para mejorar la compatibilidad visual.
 
 ## Tecnologías utilizadas
 
@@ -36,24 +41,47 @@ El objetivo del proyecto es ofrecer una herramienta sencilla, funcional y amplia
 La aplicación se organiza en diferentes pantallas o actividades:
 
 - `MainActivity`: pantalla principal y navegación.
-- `NuevoClienteActivity`: registro de clientes.
-- `ListaClientesActivity`: consulta de clientes.
+- `NuevoClienteActivity`: registro de clientes y validación de datos.
+- `ListaClientesActivity`: consulta de clientes registrados.
 - `EditarEliminarClienteActivity`: edición y eliminación de clientes.
-- `NuevaRutinaActivity`: registro de rutinas.
-- `ListaRutinasActivity`: consulta de rutinas.
-- `NuevoSeguimientoActivity`: registro de seguimientos físicos.
-- `ListaSeguimientosActivity`: consulta de seguimientos.
-- `ClienteDbHelper`: gestión de la base de datos SQLite.
+- `NuevaRutinaActivity`: registro de rutinas con selección de días y calendario.
+- `ListaRutinasActivity`: consulta general de rutinas.
 - `RutinasPorClienteActivity`: consulta de rutinas filtradas por cliente.
+- `NuevoSeguimientoActivity`: registro de seguimientos físicos con calendario.
+- `ListaSeguimientosActivity`: consulta general de seguimientos.
 - `SeguimientosPorClienteActivity`: consulta de seguimientos filtrados por cliente.
+- `ClienteDbHelper`: gestión de la base de datos SQLite.
+
+## Base de datos
+
+La aplicación utiliza una base de datos SQLite local compuesta por tres entidades principales:
+
+- `Cliente`: almacena los datos personales y deportivos del cliente.
+- `Rutina`: almacena rutinas de entrenamiento asociadas a clientes.
+- `Seguimiento`: almacena registros físicos asociados a clientes.
+
+Las rutinas y seguimientos se relacionan con los clientes mediante el campo `cliente_id`.
+
+## Validaciones implementadas
+
+La aplicación incluye validaciones para mejorar la coherencia de los datos:
+
+- El nombre del cliente es obligatorio.
+- Nombre y apellidos no pueden contener números.
+- El teléfono debe tener un formato válido de 9 dígitos.
+- El correo electrónico debe tener un formato válido.
+- La edad debe ser un número válido.
+- No se pueden registrar rutinas o seguimientos para clientes inexistentes.
+- Las rutinas deben tener al menos un día de entrenamiento seleccionado.
+- Las fechas se seleccionan mediante calendario para evitar errores de formato.
 
 ## Estado del proyecto
 
 Versión académica funcional.
 
-Actualmente la aplicación permite gestionar clientes, rutinas y seguimientos de forma local. También incorpora consultas filtradas por cliente para visualizar únicamente las rutinas o seguimientos asociados a un cliente concreto.
+Actualmente la aplicación permite gestionar clientes, rutinas y seguimientos de forma local, incorporando validaciones, consultas filtradas por cliente y mejoras de usabilidad en formularios.
 
-Como posibles mejoras futuras se contemplan la mejora visual de listados, autenticación, sincronización en la nube, gráficos de evolución y generación de informes.
+Como posibles mejoras futuras se contemplan la creación de una biblioteca de ejercicios, mejora visual de listados, autenticación, sincronización en la nube, gráficos de evolución y generación de informes.
 
 ## Autor
 
