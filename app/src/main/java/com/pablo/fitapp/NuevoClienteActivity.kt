@@ -5,6 +5,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.util.Patterns
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 
 class NuevoClienteActivity : AppCompatActivity() {
 
@@ -22,7 +25,12 @@ class NuevoClienteActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etEdad = findViewById<EditText>(R.id.etEdad)
         val etObjetivo = findViewById<EditText>(R.id.etObjetivo)
-        val etNivel = findViewById<EditText>(R.id.etNivel)
+        val spNivel = findViewById<Spinner>(R.id.spNivel)
+
+        val niveles = arrayOf("Principiante", "Intermedio", "Avanzado")
+        val adapterNivel = ArrayAdapter(this, android.R.layout.simple_spinner_item, niveles)
+        adapterNivel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spNivel.adapter = adapterNivel
         val etObservaciones = findViewById<EditText>(R.id.etObservaciones)
 
         val btnGuardarCliente = findViewById<Button>(R.id.btnGuardarCliente)
@@ -35,7 +43,7 @@ class NuevoClienteActivity : AppCompatActivity() {
             val email = etEmail.text.toString().trim()
             val edadTexto = etEdad.text.toString().trim()
             val objetivo = etObjetivo.text.toString().trim()
-            val nivel = etNivel.text.toString().trim()
+            val nivel = spNivel.selectedItem.toString()
             val observaciones = etObservaciones.text.toString().trim()
 
             if (nombre.isEmpty()) {
@@ -43,10 +51,31 @@ class NuevoClienteActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val edad = if (edadTexto.isNotEmpty()) {
-                edadTexto.toIntOrNull() ?: 0
-            } else {
-                0
+            if (nombre.any { it.isDigit() }) {
+                Toast.makeText(this, "El nombre no debe contener números", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (apellidos.any { it.isDigit() }) {
+                Toast.makeText(this, "Los apellidos no deben contener números", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (telefono.isNotEmpty() && !telefono.matches(Regex("^[0-9]{9}$"))) {
+                Toast.makeText(this, "Introduce un teléfono válido de 9 dígitos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Introduce un correo electrónico válido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val edad = edadTexto.toIntOrNull()
+
+            if (edad == null || edad <= 0 || edad > 120) {
+                Toast.makeText(this, "Introduce una edad válida", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
             val cliente = Cliente(

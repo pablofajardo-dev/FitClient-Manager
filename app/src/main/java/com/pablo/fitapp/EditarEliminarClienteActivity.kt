@@ -5,6 +5,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.util.Patterns
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 
 class EditarEliminarClienteActivity : AppCompatActivity() {
 
@@ -25,7 +28,12 @@ class EditarEliminarClienteActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmailEditar)
         val etEdad = findViewById<EditText>(R.id.etEdadEditar)
         val etObjetivo = findViewById<EditText>(R.id.etObjetivoEditar)
-        val etNivel = findViewById<EditText>(R.id.etNivelEditar)
+        val spEditarNivel = findViewById<Spinner>(R.id.spEditarNivel)
+
+        val niveles = arrayOf("Principiante", "Intermedio", "Avanzado")
+        val adapterNivel = ArrayAdapter(this, android.R.layout.simple_spinner_item, niveles)
+        adapterNivel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spEditarNivel.adapter = adapterNivel
         val etObservaciones = findViewById<EditText>(R.id.etObservacionesEditar)
 
         val btnBuscarCliente = findViewById<Button>(R.id.btnBuscarCliente)
@@ -62,7 +70,14 @@ class EditarEliminarClienteActivity : AppCompatActivity() {
                 etEmail.setText(cliente.email)
                 etEdad.setText(cliente.edad.toString())
                 etObjetivo.setText(cliente.objetivo)
-                etNivel.setText(cliente.nivel)
+
+                val posicionNivel = niveles.indexOf(cliente.nivel)
+                if (posicionNivel >= 0) {
+                    spEditarNivel.setSelection(posicionNivel)
+                } else {
+                    spEditarNivel.setSelection(0)
+                }
+
                 etObservaciones.setText(cliente.observaciones)
 
                 Toast.makeText(this, "Cliente cargado", Toast.LENGTH_SHORT).show()
@@ -76,24 +91,56 @@ class EditarEliminarClienteActivity : AppCompatActivity() {
             }
 
             val nombre = etNombre.text.toString().trim()
+            val apellidos = etApellidos.text.toString().trim()
+            val telefono = etTelefono.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val edadTexto = etEdad.text.toString().trim()
+            val objetivo = etObjetivo.text.toString().trim()
+            val nivel = spEditarNivel.selectedItem.toString()
+            val observaciones = etObservaciones.text.toString().trim()
 
             if (nombre.isEmpty()) {
                 Toast.makeText(this, "El nombre es obligatorio", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val edad = etEdad.text.toString().trim().toIntOrNull() ?: 0
+            if (nombre.any { it.isDigit() }) {
+                Toast.makeText(this, "El nombre no debe contener números", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (apellidos.any { it.isDigit() }) {
+                Toast.makeText(this, "Los apellidos no deben contener números", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (telefono.isNotEmpty() && !telefono.matches(Regex("^[0-9]{9}$"))) {
+                Toast.makeText(this, "Introduce un teléfono válido de 9 dígitos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Introduce un correo electrónico válido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val edad = edadTexto.toIntOrNull()
+
+            if (edad == null || edad <= 0 || edad > 120) {
+                Toast.makeText(this, "Introduce una edad válida", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val clienteActualizado = Cliente(
                 id = clienteActualId,
                 nombre = nombre,
-                apellidos = etApellidos.text.toString().trim(),
-                telefono = etTelefono.text.toString().trim(),
-                email = etEmail.text.toString().trim(),
+                apellidos = apellidos,
+                telefono = telefono,
+                email = email,
                 edad = edad,
-                objetivo = etObjetivo.text.toString().trim(),
-                nivel = etNivel.text.toString().trim(),
-                observaciones = etObservaciones.text.toString().trim()
+                objetivo = objetivo,
+                nivel = nivel,
+                observaciones = observaciones
             )
 
             val filasActualizadas = dbHelper.actualizarCliente(clienteActualizado)
@@ -124,7 +171,7 @@ class EditarEliminarClienteActivity : AppCompatActivity() {
                 etEmail.text.clear()
                 etEdad.text.clear()
                 etObjetivo.text.clear()
-                etNivel.text.clear()
+                spEditarNivel.setSelection(0)
                 etObservaciones.text.clear()
             } else {
                 Toast.makeText(this, "No se pudo eliminar el cliente", Toast.LENGTH_SHORT).show()
