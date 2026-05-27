@@ -6,6 +6,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.CheckBox
+import android.app.DatePickerDialog
+import java.util.Calendar
 
 class NuevaRutinaActivity : AppCompatActivity() {
 
@@ -27,7 +29,32 @@ class NuevaRutinaActivity : AppCompatActivity() {
         val cbViernes = findViewById<CheckBox>(R.id.cbViernes)
         val cbSabado = findViewById<CheckBox>(R.id.cbSabado)
         val cbDomingo = findViewById<CheckBox>(R.id.cbDomingo)
-        val etRutinaFechaInicio = findViewById<EditText>(R.id.etRutinaFechaInicio)
+        val etFechaInicio = findViewById<EditText>(R.id.etFechaInicio)
+        etFechaInicio.setOnClickListener {
+            val calendario = Calendar.getInstance()
+
+            val anio = calendario.get(Calendar.YEAR)
+            val mes = calendario.get(Calendar.MONTH)
+            val dia = calendario.get(Calendar.DAY_OF_MONTH)
+
+            val datePicker = DatePickerDialog(
+                this,
+                { _, year, month, dayOfMonth ->
+                    val fechaSeleccionada = String.format(
+                        "%02d/%02d/%04d",
+                        dayOfMonth,
+                        month + 1,
+                        year
+                    )
+                    etFechaInicio.setText(fechaSeleccionada)
+                },
+                anio,
+                mes,
+                dia
+            )
+
+            datePicker.show()
+        }
 
         val btnGuardarRutina = findViewById<Button>(R.id.btnGuardarRutina)
         val btnVolverRutina = findViewById<Button>(R.id.btnVolverRutina)
@@ -52,7 +79,7 @@ class NuevaRutinaActivity : AppCompatActivity() {
             }
 
             val diasSemana = diasSeleccionados.joinToString(", ")
-            val fechaInicio = etRutinaFechaInicio.text.toString().trim()
+            val fechaInicio = etFechaInicio.text.toString().trim()
 
             if (clienteIdTexto.isEmpty()) {
                 Toast.makeText(this, "El ID del cliente es obligatorio", Toast.LENGTH_SHORT).show()

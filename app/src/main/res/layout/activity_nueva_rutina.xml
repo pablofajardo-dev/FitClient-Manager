@@ -100,12 +100,14 @@
             android:layout_marginBottom="12dp" />
 
         <EditText
-            android:id="@+id/etRutinaFechaInicio"
+            android:id="@+id/etFechaInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha inicio: 22/05/2026"
-            android:inputType="date"
-            android:layout_marginBottom="24dp" />
+            android:hint="Fecha de inicio"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="true"
+            android:layout_marginBottom="12dp" />
 
         <Button
             android:id="@+id/btnGuardarRutina"

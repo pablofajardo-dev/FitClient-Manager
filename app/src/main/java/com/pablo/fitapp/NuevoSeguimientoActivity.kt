@@ -5,6 +5,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.app.DatePickerDialog
+import java.util.Calendar
 
 class NuevoSeguimientoActivity : AppCompatActivity() {
 
@@ -17,7 +19,34 @@ class NuevoSeguimientoActivity : AppCompatActivity() {
         dbHelper = ClienteDbHelper(this)
 
         val etSeguimientoClienteId = findViewById<EditText>(R.id.etSeguimientoClienteId)
+
         val etSeguimientoFecha = findViewById<EditText>(R.id.etSeguimientoFecha)
+        etSeguimientoFecha.setOnClickListener {
+            val calendario = Calendar.getInstance()
+
+            val anio = calendario.get(Calendar.YEAR)
+            val mes = calendario.get(Calendar.MONTH)
+            val dia = calendario.get(Calendar.DAY_OF_MONTH)
+
+            val datePicker = DatePickerDialog(
+                this,
+                { _, year, month, dayOfMonth ->
+                    val fechaSeleccionada = String.format(
+                        "%02d/%02d/%04d",
+                        dayOfMonth,
+                        month + 1,
+                        year
+                    )
+                    etSeguimientoFecha.setText(fechaSeleccionada)
+                },
+                anio,
+                mes,
+                dia
+            )
+
+            datePicker.show()
+        }
+
         val etSeguimientoPeso = findViewById<EditText>(R.id.etSeguimientoPeso)
         val etSeguimientoObservaciones = findViewById<EditText>(R.id.etSeguimientoObservaciones)
 
