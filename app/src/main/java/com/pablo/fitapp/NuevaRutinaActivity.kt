@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.CheckBox
 
 class NuevaRutinaActivity : AppCompatActivity() {
 
@@ -19,7 +20,13 @@ class NuevaRutinaActivity : AppCompatActivity() {
         val etRutinaClienteId = findViewById<EditText>(R.id.etRutinaClienteId)
         val etRutinaNombre = findViewById<EditText>(R.id.etRutinaNombre)
         val etRutinaDescripcion = findViewById<EditText>(R.id.etRutinaDescripcion)
-        val etRutinaDias = findViewById<EditText>(R.id.etRutinaDias)
+        val cbLunes = findViewById<CheckBox>(R.id.cbLunes)
+        val cbMartes = findViewById<CheckBox>(R.id.cbMartes)
+        val cbMiercoles = findViewById<CheckBox>(R.id.cbMiercoles)
+        val cbJueves = findViewById<CheckBox>(R.id.cbJueves)
+        val cbViernes = findViewById<CheckBox>(R.id.cbViernes)
+        val cbSabado = findViewById<CheckBox>(R.id.cbSabado)
+        val cbDomingo = findViewById<CheckBox>(R.id.cbDomingo)
         val etRutinaFechaInicio = findViewById<EditText>(R.id.etRutinaFechaInicio)
 
         val btnGuardarRutina = findViewById<Button>(R.id.btnGuardarRutina)
@@ -29,7 +36,22 @@ class NuevaRutinaActivity : AppCompatActivity() {
             val clienteIdTexto = etRutinaClienteId.text.toString().trim()
             val nombre = etRutinaNombre.text.toString().trim()
             val descripcion = etRutinaDescripcion.text.toString().trim()
-            val dias = etRutinaDias.text.toString().trim()
+            val diasSeleccionados = mutableListOf<String>()
+
+            if (cbLunes.isChecked) diasSeleccionados.add("Lunes")
+            if (cbMartes.isChecked) diasSeleccionados.add("Martes")
+            if (cbMiercoles.isChecked) diasSeleccionados.add("Miércoles")
+            if (cbJueves.isChecked) diasSeleccionados.add("Jueves")
+            if (cbViernes.isChecked) diasSeleccionados.add("Viernes")
+            if (cbSabado.isChecked) diasSeleccionados.add("Sábado")
+            if (cbDomingo.isChecked) diasSeleccionados.add("Domingo")
+
+            if (diasSeleccionados.isEmpty()) {
+                Toast.makeText(this, "Selecciona al menos un día de entrenamiento", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val diasSemana = diasSeleccionados.joinToString(", ")
             val fechaInicio = etRutinaFechaInicio.text.toString().trim()
 
             if (clienteIdTexto.isEmpty()) {
@@ -60,7 +82,7 @@ class NuevaRutinaActivity : AppCompatActivity() {
                 clienteId = clienteId,
                 nombre = nombre,
                 descripcion = descripcion,
-                diasSemana = dias,
+                diasSemana = diasSemana,
                 fechaInicio = fechaInicio
             )
 

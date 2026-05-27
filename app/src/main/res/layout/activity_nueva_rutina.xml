@@ -47,12 +47,56 @@
             android:gravity="top"
             android:layout_marginBottom="12dp" />
 
-        <EditText
-            android:id="@+id/etRutinaDias"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Días de la semana"
-            android:inputType="text"
+            android:text="Días de entrenamiento"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp" />
+
+        <CheckBox
+            android:id="@+id/cbLunes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lunes" />
+
+        <CheckBox
+            android:id="@+id/cbMartes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Martes" />
+
+        <CheckBox
+            android:id="@+id/cbMiercoles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Miércoles" />
+
+        <CheckBox
+            android:id="@+id/cbJueves"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jueves" />
+
+        <CheckBox
+            android:id="@+id/cbViernes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Viernes" />
+
+        <CheckBox
+            android:id="@+id/cbSabado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sábado" />
+
+        <CheckBox
+            android:id="@+id/cbDomingo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Domingo"
             android:layout_marginBottom="12dp" />
 
         <EditText
